@@ -1,47 +1,110 @@
 @use "./variables" as v;
 @use "./mixins" as m;
 
-// ── Hero wrapper ──────────────────────────────────────────────────────────────
-.hero-section {
-  overflow: hidden;
+// ══════════════════════════════════════════════════════════════════════════════
+//  KEYFRAMES
+// ══════════════════════════════════════════════════════════════════════════════
 
-  // Override Bootstrap carousel fade so we use a slide-based translate
-  .carousel-item {
-    transition: transform 0.65s ease-in-out;
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-// ── Base slide ────────────────────────────────────────────────────────────────
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SECTION WRAPPER
+// ══════════════════════════════════════════════════════════════════════════════
+
+.hero-section {
+  position: relative; // anchor for abs-positioned nav buttons
+  overflow: hidden;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SWIPER OVERRIDES
+// ══════════════════════════════════════════════════════════════════════════════
+
+.hero-swiper {
+  // Swiper default CSS vars we override
+  --swiper-theme-color: #{v.$secondary};
+
+  .swiper-wrapper {
+    // cubic-bezier gives a gentle overshoot feel
+    transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1) !important;
+  }
+
+  // ── Pagination dots ─────────────────────────────────────────────────────
+  .swiper-pagination {
+    bottom: 18px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+    margin: 0 5px !important;
+    transition: background 0.25s, transform 0.25s, width 0.3s;
+
+    // on the yellow (sale) slide, flip to dark dots
+    .slide-sale & { background: rgba(0, 62, 28, 0.35); }
+  }
+
+  .swiper-pagination-bullet-active {
+    background: v.$secondary !important;
+    transform: scale(1.35);
+    border-radius: 5px;
+    width: 22px; // pill shape on active
+
+    .slide-sale & { background: v.$primary-dark !important; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SLIDE BASE
+// ══════════════════════════════════════════════════════════════════════════════
+
 .hero-slide {
   min-height: 460px;
-  padding: 3.5rem 0 4rem;
+  padding: 3.5rem 0 4.5rem; // bottom extra for pagination dots
   position: relative;
   overflow: hidden;
 
   @media (max-width: 991.98px) {
     min-height: auto;
-    padding: 2.5rem 0 3.5rem;
+    padding: 2.5rem 0 4rem;
   }
   @media (max-width: 575.98px) {
-    padding: 2rem 0 3rem;
+    padding: 2rem 0 3.5rem;
   }
 }
 
-// ── Slide themes ─────────────────────────────────────────────────────────────
-.slide-fresh {
-  background: linear-gradient(135deg, #002d15 0%, #003d1c 50%, #005226 100%);
-}
-.slide-sale {
-  background: linear-gradient(135deg, #c2d410 0%, v.$secondary 55%, #e8f840 100%);
-}
-.slide-delivery {
-  background: linear-gradient(135deg, #001f0d 0%, #003012 50%, #004020 100%);
-}
-.slide-organic {
-  background: linear-gradient(135deg, #1a3d0f 0%, #285c18 55%, #3d7a27 100%);
-}
+// ── Slide themes ──────────────────────────────────────────────────────────────
+.slide-fresh    { background: linear-gradient(135deg, #002d15 0%, #003d1c 50%, #005226 100%); }
+.slide-sale     { background: linear-gradient(135deg, #c2d410 0%, v.$secondary 55%, #e8f840 100%); }
+.slide-delivery { background: linear-gradient(135deg, #001f0d 0%, #003012 50%, #004020 100%); }
+.slide-organic  { background: linear-gradient(135deg, #1a3d0f 0%, #285c18 55%, #3d7a27 100%); }
 
-// ── Inner layout row ─────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+//  INNER LAYOUT
+// ══════════════════════════════════════════════════════════════════════════════
+
 .slide-body {
   display: flex;
   align-items: center;
@@ -54,7 +117,12 @@
   }
 }
 
-// ── Content column ────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+//  CONTENT COLUMN + STAGGERED ANIMATIONS
+//  The parent div is remounted via React `key` on every slide activation,
+//  so these animations always play fresh — no JS required to reset them.
+// ══════════════════════════════════════════════════════════════════════════════
+
 .slide-content {
   flex: 0 0 55%;
   max-width: 55%;
@@ -67,7 +135,25 @@
     padding-left: 1rem;
   }
   @media (max-width: 575.98px)  { padding-left: 0.5rem; }
+
+  // Every child animates up on mount with increasing delay
+  .slide-badge {
+    animation: heroSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
+  }
+  .slide-title {
+    animation: heroSlideUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+  }
+  .slide-desc {
+    animation: heroSlideUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both;
+  }
+  .slide-cta {
+    animation: heroSlideUp 0.6s  cubic-bezier(0.22, 1, 0.36, 1) 0.42s both;
+  }
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  CONTENT ELEMENTS
+// ══════════════════════════════════════════════════════════════════════════════
 
 .slide-badge {
   @include m.poppins;
@@ -80,22 +166,17 @@
   font-weight: 600;
   letter-spacing: 0.4px;
   margin-bottom: 1rem;
-
-  // default (light bg for dark slides)
   background: rgba(255, 255, 255, 0.15);
   color: v.$secondary;
   border: 1px solid rgba(255, 255, 255, 0.2);
 
-  // sale slide override
   .slide-sale & {
     background: rgba(0, 62, 28, 0.1);
     color: v.$primary-dark;
     border-color: rgba(0, 62, 28, 0.2);
   }
 
-  @media (max-width: 991.98px) {
-    font-size: 0.6875rem;
-  }
+  @media (max-width: 991.98px) { font-size: 0.6875rem; }
 }
 
 .slide-title {
@@ -108,9 +189,7 @@
 
   .slide-sale & { color: v.$primary-dark; }
 
-  @media (max-width: 575.98px) {
-    font-size: 1.5rem;
-  }
+  @media (max-width: 575.98px) { font-size: 1.5rem; }
 }
 
 .slide-desc {
@@ -124,14 +203,8 @@
 
   .slide-sale & { color: rgba(0, 30, 10, 0.78); }
 
-  @media (max-width: 991.98px) {
-    max-width: 100%;
-    font-size: 0.875rem;
-  }
-  @media (max-width: 575.98px) {
-    font-size: 0.8125rem;
-    margin-bottom: 1.25rem;
-  }
+  @media (max-width: 991.98px) { max-width: 100%; font-size: 0.875rem; }
+  @media (max-width: 575.98px) { font-size: 0.8125rem; margin-bottom: 1.25rem; }
 }
 
 .slide-cta {
@@ -144,15 +217,12 @@
   font-size: 0.9375rem;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   letter-spacing: 0.2px;
-
-  // default: yellow button on dark slides
   background: v.$secondary;
   color: v.$primary-dark;
   box-shadow: 0 4px 18px rgba(218, 237, 53, 0.35);
 
-  // sale slide: dark button on yellow bg
   .slide-sale & {
     background: v.$primary-dark;
     color: v.$white;
@@ -161,108 +231,75 @@
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(218, 237, 53, 0.45);
+    box-shadow: 0 8px 26px rgba(218, 237, 53, 0.48);
   }
-  .slide-sale &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  }
+  .slide-sale &:hover { box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35); }
 
   .cta-arrow {
     display: inline-flex;
     transition: transform 0.2s;
   }
-  &:hover .cta-arrow { transform: translateX(3px); }
+  &:hover .cta-arrow { transform: translateX(4px); }
 
-  @media (max-width: 575.98px) {
-    font-size: 0.875rem;
-    padding: 0.6rem 1.4rem;
-  }
+  @media (max-width: 575.98px) { font-size: 0.875rem; padding: 0.6rem 1.4rem; }
 }
 
-// ── Artwork column ────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+//  ARTWORK COLUMN
+// ══════════════════════════════════════════════════════════════════════════════
+
 .slide-artwork {
   flex: 0 0 45%;
   max-width: 45%;
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: heroFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 
-  @media (max-width: 991.98px) {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
+  @media (max-width: 991.98px) { flex: 1 1 100%; max-width: 100%; }
 
   .slide-svg {
     width: 100%;
     max-width: 320px;
     height: auto;
     filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.25));
-    animation: heroFloat 4s ease-in-out infinite;
+    animation: heroFloat 4.2s ease-in-out infinite;
 
-    @media (max-width: 991.98px) {
-      max-width: 200px;
-    }
-    @media (max-width: 575.98px) {
-      max-width: 155px;
-    }
+    @media (max-width: 991.98px) { max-width: 200px; }
+    @media (max-width: 575.98px) { max-width: 155px; }
   }
 }
 
-@keyframes heroFloat {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(-12px); }
-}
+// ══════════════════════════════════════════════════════════════════════════════
+//  CUSTOM NAV ARROWS  (positioned relative to .hero-section)
+// ══════════════════════════════════════════════════════════════════════════════
 
-// ── Carousel indicators (dots) ────────────────────────────────────────────────
-.hero-dots {
-  bottom: 18px;
-
-  [data-bs-target] {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    opacity: 1;
-    transition: background 0.25s, transform 0.25s;
-
-    &.active {
-      background: v.$secondary;
-      transform: scale(1.3);
-    }
-  }
-
-  // sale slide: dark dots
-  .slide-sale ~ & [data-bs-target],
-  &.sale-dots [data-bs-target] {
-    background: rgba(0, 62, 28, 0.35);
-    &.active { background: v.$primary-dark; }
-  }
-}
-
-// ── Prev / next arrows ────────────────────────────────────────────────────────
 .hero-prev,
 .hero-next {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-radius: 50%;
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: background 0.2s;
-  opacity: 1 !important;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: v.$white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(6px);
 
-  &:hover { background: rgba(255, 255, 255, 0.28) !important; }
-
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    width: 18px;
-    height: 18px;
+  &:hover {
+    background: rgba(255, 255, 255, 0.32);
+    transform: translateY(-50%) scale(1.08);
   }
 
-  @media (max-width: 575.98px) {
-    display: none;
-  }
+  @media (max-width: 575.98px) { display: none; }
 }
-.hero-prev { left: 12px; }
-.hero-next { right: 12px; }
+
+.hero-prev { left: 14px; }
+.hero-next { right: 14px; }

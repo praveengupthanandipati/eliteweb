@@ -1,11 +1,13 @@
 import React from 'react'
 import HomeHero from '../components/HomeHero'
+import Homecategories from '../components/Homecategories'
 
 const Home = () => {
   return (
     <React.Fragment>
        <HomeHero />
-       <p>Home page Content</p>
+      <Homecategories />
+      
     </React.Fragment>
   )
 }
