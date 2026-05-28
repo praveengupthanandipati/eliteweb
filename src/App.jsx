@@ -6,12 +6,14 @@ import './styles/App.scss'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
+import Toast from './components/Toast'
 
 function App() {
 
   return (
     <Router>
       <div className="App">
+        <Toast />
         <Header />
         <main>
           <Routes>

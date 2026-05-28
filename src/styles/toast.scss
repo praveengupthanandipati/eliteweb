@@ -1,0 +1,120 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Fixed portal ──────────────────────────────────────────────────────────────
+.toast-portal {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none; // pass clicks through when empty
+
+  @media (max-width: 575.98px) {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+  }
+}
+
+// ── Single toast ──────────────────────────────────────────────────────────────
+.toast-item {
+  @include m.poppins;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 290px;
+  max-width: 380px;
+  background: v.$white;
+  border-left: 4px solid v.$primary;
+  border-radius: 10px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.14);
+  padding: 14px 14px 14px 16px;
+
+  // single keyframe drives the entire lifecycle
+  animation: toastLife var(--toast-duration, 3.5s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  @media (max-width: 575.98px) {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+// ── Check circle icon ─────────────────────────────────────────────────────────
+.toast-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: v.$light-green;
+  border: 2px solid v.$primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: v.$primary;
+}
+
+// ── Message text ──────────────────────────────────────────────────────────────
+.toast-msg {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: v.$text-dark;
+  line-height: 1.4;
+}
+
+// ── Close button ──────────────────────────────────────────────────────────────
+.toast-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  line-height: 1;
+  font-size: 1.125rem;
+  color: v.$gray-mid;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+
+  &:hover {
+    color: v.$text-dark;
+    background: v.$gray-50;
+  }
+}
+
+// ── Progress bar (auto-drain) ─────────────────────────────────────────────────
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 4px; // align to the border-left
+  right: 0;
+  height: 3px;
+  background: v.$primary;
+  border-radius: 0 0 10px 0;
+  transform-origin: left;
+  animation: toastProgress var(--toast-duration, 3.5s) linear forwards;
+
+  .toast-item { position: relative; overflow: hidden; }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  KEYFRAMES
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Slide in → hold → fade + slide out
+@keyframes toastLife {
+  0%   { opacity: 0;   transform: translateX(calc(100% + 24px)); }
+  10%  { opacity: 1;   transform: translateX(0); }
+  78%  { opacity: 1;   transform: translateX(0); }
+  100% { opacity: 0;   transform: translateX(24px); }
+}
+
+// Progress bar drains left-to-right across the full duration
+@keyframes toastProgress {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}

@@ -1,0 +1,220 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SECTION
+// ══════════════════════════════════════════════════════════════════════════════
+
+.homebanner-section {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin: 2.5rem 0;
+
+  // ── Layered gradient background ──────────────────────────────────────────
+  background:
+    linear-gradient(
+      105deg,
+      #c3e8a4 0%,
+      #ceedb2 18%,
+      #daf3c4 38%,
+      #e8f8d6 58%,
+      #f3fcec 78%,
+      #fafff6 100%
+    );
+
+  // ── Scattered dry-fruit silhouette pattern (SVG data-uri) ─────────────────
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    // tiled 300 × 300 tile of almond/cashew silhouettes
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3C!-- almonds --%3E%3Cellipse cx='30' cy='45' rx='11' ry='22' fill='%2300622e' opacity='0.07' transform='rotate(28 30 45)'/%3E%3Cellipse cx='155' cy='25' rx='9' ry='18' fill='%2300622e' opacity='0.055' transform='rotate(-18 155 25)'/%3E%3Cellipse cx='255' cy='85' rx='12' ry='23' fill='%2300622e' opacity='0.065' transform='rotate(42 255 85)'/%3E%3Cellipse cx='75' cy='180' rx='10' ry='20' fill='%2300622e' opacity='0.05' transform='rotate(-38 75 180)'/%3E%3Cellipse cx='210' cy='165' rx='13' ry='25' fill='%2300622e' opacity='0.06' transform='rotate(17 210 165)'/%3E%3Cellipse cx='285' cy='210' rx='8' ry='16' fill='%2300622e' opacity='0.045' transform='rotate(-12 285 210)'/%3E%3Cellipse cx='130' cy='260' rx='11' ry='21' fill='%2300622e' opacity='0.055' transform='rotate(32 130 260)'/%3E%3Cellipse cx='18' cy='270' rx='9' ry='17' fill='%2300622e' opacity='0.045' transform='rotate(-44 18 270)'/%3E%3Cellipse cx='268' cy='268' rx='10' ry='19' fill='%2300622e' opacity='0.05' transform='rotate(22 268 268)'/%3E%3C!-- cashew curves --%3E%3Cpath d='M100 120 Q115 105 125 120 Q115 135 100 120Z' fill='%2300622e' opacity='0.055'/%3E%3Cpath d='M230 45 Q248 32 256 50 Q244 64 230 45Z' fill='%2300622e' opacity='0.05'/%3E%3Cpath d='M45 110 Q58 97 66 112 Q56 126 45 110Z' fill='%2300622e' opacity='0.045'/%3E%3Cpath d='M175 215 Q191 203 198 218 Q187 232 175 215Z' fill='%2300622e' opacity='0.055'/%3E%3C!-- tiny seed dots --%3E%3Ccircle cx='195' cy='88' r='5' fill='%2300622e' opacity='0.04'/%3E%3Ccircle cx='62' cy='60' r='4' fill='%2300622e' opacity='0.035'/%3E%3Ccircle cx='240' cy='145' r='6' fill='%2300622e' opacity='0.04'/%3E%3Ccircle cx='115' cy='195' r='4' fill='%2300622e' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+  }
+
+  // ── Fading right edge (product image bleeds into white) ───────────────────
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.55));
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  INNER LAYOUT
+// ══════════════════════════════════════════════════════════════════════════════
+
+.homebanner-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: 300px;
+  padding: 3rem 0;
+
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+    padding: 2.5rem 0 0;
+    text-align: center;
+  }
+  @media (max-width: 575.98px) { padding: 2rem 0 0; }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  CONTENT (left column)
+// ══════════════════════════════════════════════════════════════════════════════
+
+.homebanner-content {
+  flex: 0 0 52%;
+  max-width: 52%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  @media (max-width: 1199.98px) { padding-left: 1rem; padding-right: 1rem; }
+  @media (max-width: 767.98px)  { flex: 1 1 100%; max-width: 100%; padding: 0 1rem 2rem; }
+}
+
+.homebanner-title {
+  @include m.poppins;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  color: v.$primary-dark;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.homebanner-desc {
+  @include m.poppins;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: rgba(0, 40, 18, 0.78);
+  line-height: 1.75;
+  margin: 0 0 1.75rem;
+  max-width: 480px;
+
+  @media (max-width: 767.98px) { max-width: 100%; font-size: 0.875rem; }
+  @media (max-width: 575.98px) { font-size: 0.8125rem; margin-bottom: 1.25rem; }
+}
+
+.homebanner-cta {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.65rem 1.75rem;
+  background: v.$primary;
+  color: v.$white;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 98, 46, 0.3);
+
+  svg { transition: transform 0.2s; }
+
+  &:hover {
+    background: v.$primary-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 98, 46, 0.38);
+    svg { transform: translateX(3px); }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  IMAGE (right column)
+// ══════════════════════════════════════════════════════════════════════════════
+
+.homebanner-img-wrap {
+  flex: 0 0 48%;
+  max-width: 48%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 2rem;
+
+  @media (max-width: 1199.98px) { padding-right: 1rem; }
+  @media (max-width: 767.98px)  {
+    flex: 1 1 100%;
+    max-width: 100%;
+    justify-content: center;
+    padding-right: 0;
+  }
+}
+
+.homebanner-img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  // slight vertical float animation (continuous)
+  animation: bannerFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.15));
+
+  @media (max-width: 991.98px) { max-width: 380px; }
+  @media (max-width: 767.98px) { max-width: 300px; }
+  @media (max-width: 575.98px) { max-width: 240px; }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SCROLL ANIMATION  — triggered by JS adding  .in-view  to the section
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Default hidden state (before in-view)
+.homebanner-title,
+.homebanner-desc,
+.homebanner-cta {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.homebanner-img-wrap {
+  opacity: 0;
+  transform: translateX(56px) scale(0.95);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+// Revealed state (JS adds this class)
+.homebanner-section.in-view {
+  .homebanner-title {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0s;
+  }
+  .homebanner-desc {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.15s;
+  }
+  .homebanner-cta {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.3s;
+  }
+  .homebanner-img-wrap {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    transition-delay: 0.18s;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  KEYFRAMES
+// ══════════════════════════════════════════════════════════════════════════════
+
+@keyframes bannerFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
