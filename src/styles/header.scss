@@ -240,6 +240,9 @@
     gap: 3px;
     text-decoration: none;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
 
     .cart-pill {
       @include m.icon-pill(v.$primary);
@@ -397,13 +400,28 @@
 .elite-category-nav {
   background: v.$primary;
   border-top: 2px solid rgba(218, 237, 53, 0.25);
+  position: relative; // anchor for .cat-ghost
 
+  // ── Ghost list (hidden, used only for width measurement) ──────────────────
+  .cat-ghost {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    visibility: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  // ── Main inner row ─────────────────────────────────────────────────────────
   .category-inner {
     display: flex;
     align-items: stretch;
-    overflow-x: auto;
-    scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
+    min-height: 0;
   }
 
   .cat-heading {
@@ -419,10 +437,27 @@
     padding: 0.7rem 1.1rem 0.7rem 0;
     border-right: 1px solid rgba(255, 255, 255, 0.18);
     letter-spacing: 0.2px;
-
     svg { color: v.$secondary; flex-shrink: 0; }
-
     @media (max-width: 575.98px) { display: none; }
+  }
+
+  // ── Flex: 1 wrapper that ResizeObserver watches ────────────────────────────
+  // overflow: visible so the .cat-more-dropdown (position:absolute) is not clipped
+  .cat-list-wrap {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  // Inner clip: hides overflowing category items without clipping the dropdown
+  .cat-list-clip {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
   }
 
   .cat-list {
@@ -432,14 +467,16 @@
     display: flex;
     align-items: stretch;
     flex-wrap: nowrap;
+    flex-shrink: 0; // don't shrink items; clip via parent overflow:hidden
   }
 
+  // ── Shared link style (used by real links AND ghost spans) ─────────────────
   .cat-link {
     @include m.poppins;
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 0.7rem 1rem;
+    gap: 5px;
+    padding: 0.7rem 0.9rem;
     color: rgba(255, 255, 255, 0.88);
     text-decoration: none;
     font-size: 0.8125rem;
@@ -454,15 +491,75 @@
       background: rgba(218, 237, 53, 0.07);
     }
 
-    @media (max-width: 767.98px) {
-      padding: 0.65rem 0.75rem;
-      font-size: 0.75rem;
-    }
+    @media (max-width: 767.98px) { padding: 0.65rem 0.7rem; font-size: 0.75rem; }
+    @media (max-width: 575.98px) { padding: 0.6rem 0.55rem; font-size: 0.7rem; }
+  }
 
-    @media (max-width: 575.98px) {
-      padding: 0.6rem 0.6rem;
-      font-size: 0.7rem;
-      gap: 4px;
+  // ── "More Categories" button ───────────────────────────────────────────────
+  .cat-more-wrap {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .cat-more-btn {
+    background: none;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    color: v.$secondary;
+    font-weight: 600;
+    border-bottom: 2px solid v.$secondary;
+    gap: 5px;
+
+    &--open,
+    &:hover {
+      background: rgba(218, 237, 53, 0.12);
+    }
+  }
+
+  // ── "More" dropdown panel ──────────────────────────────────────────────────
+  .cat-more-dropdown {
+    position: absolute;
+    top: calc(100% + 2px);
+    right: 0;
+    min-width: 220px;
+    max-height: 380px;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    background: v.$white;
+    border: 1.5px solid v.$gray-border;
+    border-radius: 12px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16);
+    z-index: 1050;
+    scrollbar-width: thin;
+    scrollbar-color: v.$gray-border transparent;
+    animation: cat-drop-in 0.18s ease;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: v.$gray-border; border-radius: 4px; }
+  }
+
+  @keyframes cat-drop-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .cat-more-item {
+    @include m.poppins;
+    display: block;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.875rem;
+    color: v.$text-dark;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      background: v.$light-green;
+      color: v.$primary;
     }
   }
 }
