@@ -1,0 +1,115 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Section ───────────────────────────────────────────────────────────────────
+.appbanner-section {
+  background: linear-gradient(90deg, #f3e7e9 0%, #e3eeff 100%);
+  padding: 3.5rem 0 0;
+  overflow: hidden;
+}
+
+// ── Text block ────────────────────────────────────────────────────────────────
+.appbanner-content {
+  padding-bottom: 3.5rem;
+
+  @media (max-width: 767.98px) {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+}
+
+.appbanner-label {
+  @include m.poppins;
+  display: inline-block;
+  background: rgba(v.$primary, 0.1);
+  color: v.$primary;
+  border: 1px solid rgba(v.$primary, 0.3);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.appbanner-heading {
+  @include m.poppins;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: v.$text-dark;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+
+  @media (max-width: 991.98px) { font-size: 1.7rem; }
+  @media (max-width: 575.98px) { font-size: 1.4rem; }
+
+  &--accent {
+    color: v.$primary;
+  }
+}
+
+.appbanner-sub {
+  @include m.poppins;
+  font-size: 0.95rem;
+  color: v.$text-muted;
+  line-height: 1.7;
+  max-width: 430px;
+  margin-bottom: 2rem;
+
+  @media (max-width: 767.98px) {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// ── Store buttons ─────────────────────────────────────────────────────────────
+.appbanner-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 767.98px) {
+    justify-content: center;
+  }
+}
+
+.appbanner-btn {
+  display: inline-block;
+  transition: transform 0.2s, opacity 0.2s;
+
+  img {
+    height: 48px;
+    width: auto;
+    display: block;
+
+    @media (max-width: 575.98px) { height: 42px; }
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    opacity: 0.88;
+  }
+}
+
+// ── Phone mockup ──────────────────────────────────────────────────────────────
+.appbanner-imgwrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  @media (max-width: 767.98px) {
+    margin-top: 1.5rem;
+  }
+}
+
+.appbanner-phone {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  object-fit: contain;
+
+  @media (max-width: 767.98px) { max-width: 260px; }
+  @media (max-width: 575.98px) { max-width: 220px; }
+}

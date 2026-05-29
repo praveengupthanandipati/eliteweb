@@ -1,0 +1,202 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Footer shell ──────────────────────────────────────────────────────────────
+.site-footer {
+  background: linear-gradient(160deg, #001f0d 0%, #00431e 40%, #00622e 75%, #00874a 100%);
+}
+
+// ── Main grid area ────────────────────────────────────────────────────────────
+.footer-main {
+  padding: 3.5rem 0 2.5rem;
+}
+
+// ── Brand column ──────────────────────────────────────────────────────────────
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 1rem;
+
+  img {
+    height: 64px;    
+  }
+}
+
+.footer-brand-desc {
+  @include m.poppins;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  max-width: 280px;
+}
+
+// ── Social icons ──────────────────────────────────────────────────────────────
+.footer-socials {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+
+  &:hover {
+    background: v.$secondary;
+    color: v.$primary;
+    border-color: v.$secondary;
+    transform: translateY(-3px);
+  }
+}
+
+// ── Column headings ───────────────────────────────────────────────────────────
+.footer-heading {
+  @include m.poppins;
+  font-size: 1rem;
+  font-weight: 700;
+  color: v.$white;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid rgba(v.$secondary, 0.5);
+  display: inline-block;
+}
+
+// ── Link lists ────────────────────────────────────────────────────────────────
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-link {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.18s, gap 0.18s;
+
+  svg { flex-shrink: 0; opacity: 0.6; transition: opacity 0.18s, transform 0.18s; }
+
+  &:hover {
+    color: v.$secondary;
+    gap: 9px;
+    svg { opacity: 1; transform: translateX(2px); }
+  }
+}
+
+// ── App download column ───────────────────────────────────────────────────────
+.footer-app-desc {
+  @include m.poppins;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  margin-bottom: 1.1rem;
+}
+
+.footer-app-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-app-btn {
+  display: inline-block;
+  transition: transform 0.2s, opacity 0.2s;
+
+  img {
+    height: 54px;
+    width: auto;
+    display: block;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    opacity: 0.88;
+  }
+}
+
+// ── Contact info ──────────────────────────────────────────────────────────────
+.footer-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-contact-item {
+  @include m.poppins;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+
+  svg { flex-shrink: 0; color: v.$secondary; }
+}
+
+// ── Bottom bar ────────────────────────────────────────────────────────────────
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1rem 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-copy,
+.footer-made {
+  @include m.poppins;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+}
+
+.footer-made { color: rgba(255, 255, 255, 0.45); }
+
+// ── Back to top button ────────────────────────────────────────────────────────
+.footer-backtotop {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.35rem 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+
+  svg { transition: transform 0.2s; }
+
+  &:hover {
+    background: v.$secondary;
+    border-color: v.$secondary;
+    color: v.$primary;
+    transform: translateY(-2px);
+    svg { transform: translateY(-2px); }
+  }
+}

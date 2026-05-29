@@ -1,0 +1,176 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Section wrapper ───────────────────────────────────────────────────────────
+.subscribe-section {
+  padding: 0 0 3.5rem;
+  background: v.$white;
+}
+
+// ── Gradient card ─────────────────────────────────────────────────────────────
+.subscribe-card {
+  background: linear-gradient(90deg, #002b15 0%, #00622e 55%, #00a844 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 200px;
+  padding-top:50px;
+}
+
+// ── Left pane ─────────────────────────────────────────────────────────────────
+.subscribe-left {
+  padding: 2.75rem 2.5rem 2.75rem 3rem;
+
+  @media (max-width: 991.98px) { padding: 2.5rem 2rem 2.5rem 2.5rem; }
+  @media (max-width: 767.98px) { padding: 2.5rem 1.5rem 1.5rem; }
+}
+
+.subscribe-eyebrow {
+  @include m.poppins;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.subscribe-heading {
+  @include m.poppins;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: v.$white;
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+
+  @media (max-width: 991.98px) { font-size: 1.45rem; }
+  @media (max-width: 575.98px) { font-size: 1.25rem; }
+}
+
+.subscribe-sub {
+  @include m.poppins;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+// ── Input row ─────────────────────────────────────────────────────────────────
+.subscribe-form { max-width: 480px; }
+
+.subscribe-inputwrap {
+  display: flex;
+  align-items: center;
+  background: v.$white;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding: 0 0 0 14px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+
+  &--error { border-color: #ff6b6b; }
+}
+
+.subscribe-icon {
+  flex-shrink: 0;
+  color: v.$gray-mid;
+  margin-right: 8px;
+}
+
+.subscribe-input {
+  @include m.poppins;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  color: v.$text-dark;
+  background: transparent;
+  padding: 0.7rem 0.5rem 0.7rem 0;
+
+  &::placeholder { color: v.$gray-mid; }
+}
+
+.subscribe-btn {
+  @include m.poppins;
+  flex-shrink: 0;
+  background: v.$primary;
+  color: v.$white;
+  border: none;
+  padding: 0.72rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover { background: v.$primary-dark; }
+}
+
+.subscribe-error {
+  @include m.poppins;
+  font-size: 0.8rem;
+  color: #fca5a5;
+  margin: 0.4rem 0 0;
+}
+
+.subscribe-success {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: v.$white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  max-width: 460px;
+}
+
+// ── Right pane ────────────────────────────────────────────────────────────────
+.subscribe-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  overflow: hidden;
+
+  @media (max-width: 767.98px) { display: none; }
+}
+
+// ── Coupon image ──────────────────────────────────────────────────────────────
+.subscribe-coupon {
+  position: relative;
+  z-index: 2;
+  object-fit: contain;  
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35));
+}
+
+// ── SVG / decorative elements ─────────────────────────────────────────────────
+.subscribe-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.deco {
+  position: absolute;
+
+  // gift boxes
+  &--tl { top: 14%;  left: 6%; }
+  &--tr { top: 10%;  right: 12%; }
+
+  // stars
+  &--s1 { bottom: 22%; left: 18%; }
+  &--s2 { top: 20%;   left: 40%; }
+
+  // circles
+  &--circle {
+    display: block;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+  }
+  &--c1 { width: 14px; height: 14px; top: 55%;  left: 8%;  }
+  &--c2 { width: 10px; height: 10px; bottom: 18%; left: 52%; }
+  &--c3 { width: 18px; height: 18px; top: 12%;  left: 28%; }
+}

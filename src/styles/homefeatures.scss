@@ -1,0 +1,106 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Section ───────────────────────────────────────────────────────────────────
+.homefeatures-section {
+  padding: 0 0 3.5rem;
+  background: v.$white;
+}
+
+// ── Strip ─────────────────────────────────────────────────────────────────────
+.homefeatures-strip {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid v.$gray-border;
+  border-radius: 14px;
+  overflow: hidden;
+  background: v.$white;
+
+  @media (max-width: 767.98px) {
+    flex-wrap: wrap;
+    border-radius: 12px;
+  }
+}
+
+// ── Feature item ──────────────────────────────────────────────────────────────
+.homefeature-item {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.6rem 1.5rem;
+  transition: background 0.2s;
+
+  &:hover { background: v.$light-green; }
+
+  @media (max-width: 767.98px) {
+    flex: 1 1 50%;
+    max-width: 50%;
+    border-bottom: 1px solid v.$gray-border;
+
+    &:nth-child(odd) { border-right: 1px solid v.$gray-border; }
+    &:last-child, &:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+  }
+
+  @media (max-width: 400px) {
+    flex: 1 1 100%;
+    max-width: 100%;
+    border-right: none !important;
+    border-bottom: 1px solid v.$gray-border;
+    &:last-child { border-bottom: none; }
+  }
+}
+
+// ── Icon ──────────────────────────────────────────────────────────────────────
+.homefeature-iconwrap {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background: v.$light-green;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+
+  .homefeature-item:hover & { background: rgba(v.$primary, 0.12); }
+}
+
+.homefeature-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+// ── Text ──────────────────────────────────────────────────────────────────────
+.homefeature-body { flex: 1; }
+
+.homefeature-title {
+  @include m.poppins;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: v.$text-dark;
+  margin: 0 0 0.25rem;
+  line-height: 1.2;
+}
+
+.homefeature-desc {
+  @include m.poppins;
+  font-size: 0.8rem;
+  color: v.$text-muted;
+  margin: 0;
+  line-height: 1.55;
+}
+
+// ── Vertical divider (desktop) ────────────────────────────────────────────────
+.homefeature-divider {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: v.$gray-border;
+
+  @media (max-width: 767.98px) { display: none; }
+}

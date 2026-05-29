@@ -1,0 +1,132 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Section ───────────────────────────────────────────────────────────────────
+.homeblog-section {
+  padding: 3rem 0 3.5rem;
+  background: v.$gray-50;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+.homeblog-head {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.homeblog-title {
+  @include m.poppins;
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: v.$primary;
+  margin: 0 0 10px;
+  line-height: 1.2;
+
+  @media (max-width: 575.98px) { font-size: 1.25rem; }
+}
+
+.homeblog-divider {
+  width: 48px;
+  height: 3px;
+  background: v.$primary;
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+// ── Blog card ─────────────────────────────────────────────────────────────────
+.blog-card {
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  height: 240px;
+
+  @media (max-width: 575.98px) { height: 200px; }
+
+  // dark gradient overlay at bottom
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.28) 55%,
+      transparent 100%
+    );
+    border-radius: inherit;
+    transition: opacity 0.25s;
+  }
+
+  &:hover &__img {
+    transform: scale(1.05);
+  }
+}
+
+.blog-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.blog-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1rem 1.1rem;
+  z-index: 1;
+}
+
+.blog-card__date {
+  @include m.poppins;
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: v.$secondary;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.02em;
+}
+
+.blog-card__title {
+  @include m.poppins;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: v.$white;
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ── Footer / View-all ─────────────────────────────────────────────────────────
+.homeblog-footer {
+  text-align: center;
+  margin-top: 2.25rem;
+}
+
+.homeblog-viewall {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 1.75rem;
+  border-radius: 50px;
+  border: 2px solid v.$secondary;
+  background: v.$secondary;
+  color: v.$primary;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: v.$secondary-dark;
+    border-color: v.$secondary-dark;
+    color: v.$primary;
+  }
+}

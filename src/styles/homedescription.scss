@@ -1,0 +1,80 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+// ── Section ───────────────────────────────────────────────────────────────────
+.homedesc-section {
+  padding: 3rem 0 3.5rem;
+  background: v.$white;
+  border-top: 1px solid v.$gray-border;
+}
+
+// ── Title ─────────────────────────────────────────────────────────────────────
+.homedesc-title {
+  @include m.poppins;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: v.$primary;
+  margin-bottom: 2rem;
+
+  @media (max-width: 575.98px) { font-size: 1.1rem; }
+}
+
+// ── Stats strip ───────────────────────────────────────────────────────────────
+.homedesc-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.homedesc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: v.$light-green;
+  border: 1px solid rgba(v.$primary, 0.15);
+  border-radius: 10px;
+  padding: 0.85rem 1.5rem;
+  min-width: 120px;
+  flex: 1 1 120px;
+
+  @media (max-width: 575.98px) {
+    min-width: calc(50% - 0.5rem);
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+}
+
+.homedesc-stat__value {
+  @include m.poppins;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: v.$primary;
+  line-height: 1.1;
+}
+
+.homedesc-stat__label {
+  @include m.poppins;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: v.$text-muted;
+  margin-top: 0.2rem;
+  text-align: center;
+}
+
+// ── Body copy ─────────────────────────────────────────────────────────────────
+.homedesc-body {
+  p {
+    @include m.poppins;
+    font-size: 0.9rem;
+    color: v.$text-muted;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+
+    &:last-child { margin-bottom: 0; }
+
+    strong {
+      color: v.$text-dark;
+      font-weight: 600;
+    }
+  }
+}
