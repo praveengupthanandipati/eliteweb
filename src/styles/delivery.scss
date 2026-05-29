@@ -1,0 +1,260 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+.dl-page {
+  background: v.$gray-50;
+  padding-bottom: 4rem;
+  min-height: 80vh;
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.dl-hero {
+  background: linear-gradient(135deg, #001433 0%, #002966 45%, #003d99 100%);
+  padding: 3rem 0;
+}
+.dl-hero-badge {
+  @include m.poppins;
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.85rem;
+  margin-bottom: 0.75rem;
+}
+.dl-hero-title {
+  @include m.poppins;
+  font-size: 2rem;
+  font-weight: 800;
+  color: v.$white;
+  margin: 0 0 0.3rem;
+  @media (max-width: 575.98px) { font-size: 1.5rem; }
+}
+.dl-hero-company {
+  @include m.poppins;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.72);
+  margin: 0 0 0.25rem;
+}
+.dl-hero-date {
+  @include m.poppins;
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+}
+
+// ── Highlights strip ──────────────────────────────────────────────────────────
+.dl-highlights {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  background: #003d99;
+  margin-bottom: 2rem;
+
+  @media (max-width: 991.98px) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 575.98px) { grid-template-columns: repeat(2, 1fr); }
+}
+.dl-hl-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.9rem 1rem;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  &:last-child { border-right: none; }
+  @media (max-width: 991.98px) { &:nth-child(3n) { border-right: none; } }
+  @media (max-width: 575.98px) { &:nth-child(2n) { border-right: none; } }
+}
+.dl-hl-icon { font-size: 1.4rem; flex-shrink: 0; }
+.dl-hl-label {
+  @include m.poppins;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.1rem;
+}
+.dl-hl-value {
+  @include m.poppins;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #7dd3fc;
+  margin: 0;
+  line-height: 1.2;
+}
+
+// ── Layout ────────────────────────────────────────────────────────────────────
+.dl-layout-row { align-items: stretch; }
+
+// ── TOC sidebar ───────────────────────────────────────────────────────────────
+.dl-toc {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  padding: 1.25rem;
+  position: sticky;
+  top: 88px;
+  max-height: calc(100vh - 108px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: v.$gray-border transparent;
+  &::-webkit-scrollbar { width: 3px; }
+  &::-webkit-scrollbar-thumb { background: v.$gray-border; border-radius: 4px; }
+}
+.dl-toc-title {
+  @include m.poppins;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: v.$text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+}
+.dl-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dl-toc-btn {
+  @include m.poppins;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.77rem;
+  font-weight: 500;
+  color: v.$text-muted;
+  cursor: pointer;
+  border-radius: 0 7px 7px 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  line-height: 1.4;
+  &:hover { background: v.$gray-50; color: v.$text-dark; }
+  &--active {
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 700;
+    border-left-color: #1d4ed8;
+  }
+}
+.dl-toc-contact {
+  border-top: 1px solid v.$gray-border;
+  padding-top: 0.85rem;
+  p { @include m.poppins; font-size: 0.74rem; color: v.$text-muted; margin: 0 0 0.3rem; }
+  a { @include m.poppins; font-size: 0.74rem; color: #1d4ed8; font-weight: 600; text-decoration: none;
+    &:hover { text-decoration: underline; } }
+}
+
+// ── Intro banner ──────────────────────────────────────────────────────────────
+.dl-intro-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  span { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  p {
+    @include m.poppins;
+    font-size: 0.875rem;
+    color: v.$text-dark;
+    line-height: 1.7;
+    margin: 0;
+    strong { color: #1d4ed8; }
+  }
+}
+
+// ── Policy sections ───────────────────────────────────────────────────────────
+.dl-section {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  padding: 1.75rem;
+  margin-bottom: 1.1rem;
+  scroll-margin-top: 96px;
+  @media (max-width: 575.98px) { padding: 1.25rem; }
+}
+.dl-section-title {
+  @include m.poppins;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin: 0 0 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px solid #dbeafe;
+}
+.dl-section-body {
+  p {
+    @include m.poppins;
+    font-size: 0.875rem;
+    color: v.$text-muted;
+    line-height: 1.85;
+    margin: 0 0 0.8rem;
+    &:last-child { margin-bottom: 0; }
+    strong { color: v.$text-dark; font-weight: 600; }
+  }
+}
+.dl-sub-heading {
+  @include m.poppins;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: v.$text-dark;
+  margin: 1rem 0 0.45rem;
+  &:first-child { margin-top: 0; }
+}
+.dl-list {
+  margin: 0 0 0.8rem;
+  padding-left: 1.2rem;
+  li {
+    @include m.poppins;
+    font-size: 0.875rem;
+    color: v.$text-muted;
+    line-height: 1.75;
+    margin-bottom: 0.3rem;
+    &::marker { color: #1d4ed8; }
+  }
+}
+
+// ── Footer note ───────────────────────────────────────────────────────────────
+.dl-footer-note {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  p {
+    @include m.poppins;
+    font-size: 0.85rem;
+    color: v.$text-muted;
+    margin: 0 0 1rem;
+    strong { color: v.$text-dark; }
+    a { color: #1d4ed8; font-weight: 600; text-decoration: none;
+      &:hover { text-decoration: underline; } }
+  }
+}
+.dl-footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  a {
+    @include m.poppins;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}

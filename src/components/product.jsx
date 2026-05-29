@@ -23,11 +23,25 @@ const ProductCard = ({
   onAddToCart,
 }) => {
   const [selectedWeight, setSelectedWeight] = useState(weights[0]);
+  const [qty, setQty] = useState(0);
 
   const handleAdd = () => {
     if (!inStock) return;
+    setQty(1);
     onAddToCart?.({ name, offerPrice, weight: selectedWeight });
     showToast('Product Added to Cart Successfully');
+  };
+
+  const increase = () => {
+    setQty(q => q + 1);
+    onAddToCart?.({ name, offerPrice, weight: selectedWeight });
+  };
+
+  const decrease = () => {
+    setQty(q => {
+      if (q <= 1) { return 0; }
+      return q - 1;
+    });
   };
 
   return (
@@ -75,15 +89,23 @@ const ProductCard = ({
             ))}
           </select>
 
-          <button
-            className="product-add-btn"
-            disabled={!inStock}
-            onClick={handleAdd}
-            aria-label={inStock ? `Add ${name} to cart` : 'Out of stock'}
-          >
-            <CartIcon />
-            <span>{inStock ? 'Add to Cart' : 'Out of Stock'}</span>
-          </button>
+          {qty > 0 ? (
+            <div className="product-stepper" aria-label={`${qty} in cart`}>
+              <button className="product-stepper-btn" onClick={decrease} aria-label="Decrease">−</button>
+              <span className="product-stepper-qty">{qty}</span>
+              <button className="product-stepper-btn product-stepper-btn--plus" onClick={increase} aria-label="Increase">+</button>
+            </div>
+          ) : (
+            <button
+              className="product-add-btn"
+              disabled={!inStock}
+              onClick={handleAdd}
+              aria-label={inStock ? `Add ${name} to cart` : 'Out of stock'}
+            >
+              <CartIcon />
+              <span>{inStock ? 'Add to Cart' : 'Out of Stock'}</span>
+            </button>
+          )}
         </div>
       </div>
 

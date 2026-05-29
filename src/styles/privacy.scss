@@ -1,0 +1,222 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+.priv-page {
+  background: v.$gray-50;
+  padding-bottom: 4rem;
+  min-height: 80vh;
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.priv-hero {
+  background: linear-gradient(135deg, #001a0a 0%, #003918 50%, #00622e 100%);
+  padding: 3rem 0 3rem;
+  margin-bottom: 2rem;
+}
+.priv-hero-badge {
+  @include m.poppins;
+  display: inline-block;
+  background: rgba(v.$secondary, 0.2);
+  color: v.$secondary;
+  border: 1px solid rgba(v.$secondary, 0.4);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.85rem;
+  margin-bottom: 0.85rem;
+}
+.priv-hero-title {
+  @include m.poppins;
+  font-size: 2rem;
+  font-weight: 800;
+  color: v.$white;
+  margin: 0 0 0.35rem;
+  @media (max-width: 575.98px) { font-size: 1.5rem; }
+}
+.priv-hero-company {
+  @include m.poppins;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  margin: 0 0 0.3rem;
+}
+.priv-hero-date {
+  @include m.poppins;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  margin: 0;
+}
+
+// ── Layout row ────────────────────────────────────────────────────────────────
+// The row uses the Bootstrap default (align-items: stretch).
+// The TOC column stretches to match the content column's full height —
+// that's what gives position:sticky its scroll room.
+// Do NOT add align-self: flex-start to the TOC column; that collapses its
+// height to the TOC content and breaks sticky entirely.
+.priv-layout-row {
+  align-items: stretch; // explicit, so it works even if a parent overrides
+}
+
+// ── TOC sidebar ───────────────────────────────────────────────────────────────
+.priv-toc {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  padding: 1.25rem;
+  position: sticky;
+  top: 88px;                         // sticky header height + gap
+  max-height: calc(100vh - 108px);   // never taller than the viewport
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: v.$gray-border transparent;
+  &::-webkit-scrollbar { width: 3px; }
+  &::-webkit-scrollbar-thumb { background: v.$gray-border; border-radius: 4px; }
+}
+.priv-toc-title {
+  @include m.poppins;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: v.$text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+}
+.priv-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.priv-toc-btn {
+  @include m.poppins;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: v.$text-muted;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.4;
+  &:hover { background: v.$gray-50; color: v.$text-dark; }
+  &--active { background: v.$light-green; color: v.$primary; font-weight: 700; }
+}
+.priv-toc-contact {
+  border-top: 1px solid v.$gray-border;
+  padding-top: 0.85rem;
+  p { @include m.poppins; font-size: 0.75rem; color: v.$text-muted; margin: 0 0 0.3rem; }
+  a { @include m.poppins; font-size: 0.75rem; color: v.$primary; font-weight: 600; text-decoration: none;
+    &:hover { text-decoration: underline; } }
+}
+
+// ── Intro banner ──────────────────────────────────────────────────────────────
+.priv-intro-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: v.$light-green;
+  border: 1.5px solid rgba(v.$primary, 0.18);
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.75rem;
+}
+.priv-intro-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+.priv-intro-banner p {
+  @include m.poppins;
+  font-size: 0.875rem;
+  color: v.$text-dark;
+  line-height: 1.7;
+  margin: 0;
+  strong { color: v.$primary; }
+}
+
+// ── Policy sections ───────────────────────────────────────────────────────────
+.priv-section {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  scroll-margin-top: 96px;
+
+  @media (max-width: 575.98px) { padding: 1.25rem; }
+}
+.priv-section-title {
+  @include m.poppins;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: v.$primary;
+  margin: 0 0 1.1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid v.$light-green;
+}
+.priv-section-body {
+  p {
+    @include m.poppins;
+    font-size: 0.875rem;
+    color: v.$text-muted;
+    line-height: 1.85;
+    margin: 0 0 0.85rem;
+    &:last-child { margin-bottom: 0; }
+    strong { color: v.$text-dark; font-weight: 600; }
+  }
+}
+.priv-sub-heading {
+  @include m.poppins;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: v.$text-dark;
+  margin: 1.1rem 0 0.5rem;
+  &:first-child { margin-top: 0; }
+}
+.priv-list {
+  margin: 0 0 0.85rem 0;
+  padding-left: 1.25rem;
+  li {
+    @include m.poppins;
+    font-size: 0.875rem;
+    color: v.$text-muted;
+    line-height: 1.75;
+    margin-bottom: 0.35rem;
+    &::marker { color: v.$primary; }
+  }
+}
+
+// ── Footer note ───────────────────────────────────────────────────────────────
+.priv-footer-note {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-align: center;
+
+  p {
+    @include m.poppins;
+    font-size: 0.85rem;
+    color: v.$text-muted;
+    margin: 0 0 1rem;
+    strong { color: v.$text-dark; }
+    a { color: v.$primary; font-weight: 600; text-decoration: none;
+      &:hover { text-decoration: underline; } }
+  }
+}
+.priv-footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  a {
+    @include m.poppins;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: v.$primary;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
