@@ -1,0 +1,14 @@
+# ── React Router — Apache rewrite ────────────────────────────────────────────
+# All requests that don't match a real file or directory are sent to index.html
+# so React Router can handle client-side navigation (BrowserRouter).
+
+Options -MultiViews
+RewriteEngine On
+
+# If the requested resource is a real file, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+# If the requested resource is a real directory, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Otherwise, hand everything to index.html
+RewriteRule ^ index.html [QSA,L]

@@ -22,6 +22,7 @@ import Stores from './pages/Stores'
 import ProfileManagement from './pages/Profile/ProfileManagement'
 import Addresses from './pages/Profile/Addresses'
 import Orders from './pages/Profile/Orders'
+import Categories from './pages/categories'
 import Toast from './components/Toast'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -51,6 +52,7 @@ function App() {
             <Route path="/profile" element={<ProfileManagement />} />
             <Route path="/addresses" element={<Addresses />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/categories" element={<Categories />} />
           </Routes>
         </main>
         <Footer />
