@@ -1,0 +1,475 @@
+@use "./variables" as v;
+@use "./mixins" as m;
+
+.ad-page {
+  background: v.$gray-50;
+  min-height: 80vh;
+  padding: 2rem 0 4rem;
+}
+
+.ad-layout { align-items: flex-start; }
+
+// ── Page header ───────────────────────────────────────────────────────────────
+.ad-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.ad-page-title {
+  @include m.poppins;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: v.$text-dark;
+  margin: 0;
+}
+.ad-page-count {
+  @include m.poppins;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: v.$text-muted;
+  margin: 0 0 0 0.5rem;
+}
+
+// ── Add button ────────────────────────────────────────────────────────────────
+.ad-add-btn {
+  @include m.poppins;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.83rem;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  background: v.$primary;
+  color: v.$white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  &:hover { background: v.$primary-hover; }
+  &:active { transform: scale(0.97); }
+}
+
+// ── Address grid ──────────────────────────────────────────────────────────────
+.ad-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 767.98px) { grid-template-columns: 1fr; }
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+.ad-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: v.$white;
+  border: 1.5px dashed v.$gray-border;
+  border-radius: 16px;
+  .ad-empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  p {
+    @include m.poppins;
+    font-size: 0.9rem;
+    color: v.$text-muted;
+    margin: 0 0 1rem;
+  }
+}
+
+// ── Address card ──────────────────────────────────────────────────────────────
+.ad-card {
+  background: v.$white;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.18s, border-color 0.18s;
+  position: relative;
+
+  &--primary {
+    border-color: v.$primary;
+    box-shadow: 0 0 0 3px rgba(0,98,46,0.08);
+  }
+}
+
+// Card top bar (type + badges)
+.ad-card-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 0;
+  flex-wrap: wrap;
+}
+.ad-type-badge {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &--home   { background: #dcfce7; color: #15803d; }
+  &--office { background: #dbeafe; color: #1d4ed8; }
+  &--other  { background: #fef3c7; color: #b45309; }
+}
+.ad-primary-badge {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  background: v.$primary;
+  color: v.$white;
+  letter-spacing: 0.04em;
+}
+
+// Card body
+.ad-card-body {
+  padding: 0.75rem 1rem 0.9rem;
+}
+.ad-recipient-name {
+  @include m.poppins;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: v.$text-dark;
+  margin: 0 0 0.3rem;
+}
+.ad-address-text {
+  @include m.poppins;
+  font-size: 0.8rem;
+  color: v.$text-muted;
+  line-height: 1.6;
+  margin: 0 0 0.25rem;
+}
+.ad-city-pin {
+  @include m.poppins;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: v.$text-dark;
+  margin: 0 0 0.2rem;
+}
+.ad-landmark {
+  @include m.poppins;
+  font-size: 0.75rem;
+  color: v.$text-muted;
+  margin: 0 0 0.35rem;
+}
+.ad-mobile {
+  @include m.poppins;
+  font-size: 0.78rem;
+  color: v.$text-muted;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+// Card footer (action buttons)
+.ad-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 1rem 0.75rem;
+  border-top: 1px solid v.$gray-border;
+  background: v.$gray-50;
+}
+.ad-action-btn {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.38rem 0.75rem;
+  border-radius: 7px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s, border-color 0.13s;
+
+  &--edit {
+    background: transparent;
+    color: v.$primary;
+    border-color: v.$primary;
+    &:hover { background: v.$light-green; }
+  }
+  &--delete {
+    background: transparent;
+    color: v.$danger;
+    border-color: v.$danger;
+    &:hover { background: v.$danger-bg; }
+  }
+  &--primary {
+    background: transparent;
+    color: #b45309;
+    border-color: #fbbf24;
+    &:hover { background: #fef3c7; }
+  }
+  &--primary-set {
+    background: v.$primary;
+    color: v.$white;
+    border-color: v.$primary;
+    margin-left: auto;
+    &:hover { background: v.$primary-hover; }
+  }
+  &--confirm-del {
+    background: v.$danger;
+    color: v.$white;
+    border-color: v.$danger;
+    &:hover { background: v.$danger-dark; }
+  }
+  &--cancel {
+    background: v.$white;
+    color: v.$text-muted;
+    border-color: v.$gray-border;
+    &:hover { background: v.$gray-50; }
+  }
+}
+.ad-delete-confirm-label {
+  @include m.poppins;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: v.$danger;
+  margin: 0;
+  flex: 1;
+}
+
+// ── Toast-style success notice ────────────────────────────────────────────────
+.ad-notice {
+  @include m.poppins;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-size: 0.82rem;
+  color: #166534;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  animation: ad-fadein 0.3s ease;
+}
+@keyframes ad-fadein {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// ADD / EDIT MODAL
+// ════════════════════════════════════════════════════════════════════════════
+.ad-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.ad-modal {
+  background: v.$white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: ad-modal-in 0.22s ease;
+}
+@keyframes ad-modal-in {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.ad-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1.5px solid v.$gray-border;
+  flex-shrink: 0;
+
+  h3 {
+    @include m.poppins;
+    font-size: 1rem;
+    font-weight: 700;
+    color: v.$text-dark;
+    margin: 0;
+  }
+}
+.ad-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: v.$gray-50;
+  color: v.$text-muted;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.13s;
+  &:hover { background: v.$gray-border; }
+}
+
+.ad-modal-body {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ad-modal-foot {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem;
+  border-top: 1.5px solid v.$gray-border;
+  flex-shrink: 0;
+}
+
+// Form elements inside modal
+.ad-label {
+  @include m.poppins;
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: v.$text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+  span.req { color: v.$danger; margin-left: 2px; }
+}
+.ad-input, .ad-textarea {
+  @include m.poppins;
+  width: 100%;
+  background: v.$gray-50;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 9px;
+  padding: 0.62rem 0.85rem;
+  font-size: 0.875rem;
+  color: v.$text-dark;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  &::placeholder { color: v.$gray-mid; }
+  &:focus {
+    border-color: v.$primary;
+    box-shadow: 0 0 0 3px rgba(0,98,46,0.1);
+    background: v.$white;
+  }
+  &--err {
+    border-color: v.$danger;
+    &:focus { box-shadow: 0 0 0 3px rgba(220,53,69,0.1); }
+  }
+}
+.ad-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.ad-err {
+  @include m.poppins;
+  font-size: 0.72rem;
+  color: v.$danger;
+  margin: 0.25rem 0 0;
+}
+.ad-phone-wrap {
+  display: flex;
+  align-items: center;
+  background: v.$gray-50;
+  border: 1.5px solid v.$gray-border;
+  border-radius: 9px;
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  &:focus-within {
+    border-color: v.$primary;
+    box-shadow: 0 0 0 3px rgba(0,98,46,0.1);
+    background: v.$white;
+  }
+  &--err { border-color: v.$danger; }
+  .ad-cc {
+    @include m.poppins;
+    padding: 0.62rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: v.$text-muted;
+    border-right: 1.5px solid v.$gray-border;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: v.$gray-50;
+  }
+  input {
+    @include m.poppins;
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.62rem 0.75rem;
+    font-size: 0.875rem;
+    color: v.$text-dark;
+    background: transparent;
+    &::placeholder { color: v.$gray-mid; }
+  }
+}
+
+// Address type pills
+.ad-type-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.ad-type-pill {
+  @include m.poppins;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 50px;
+  border: 1.5px solid v.$gray-border;
+  cursor: pointer;
+  transition: background 0.13s, border-color 0.13s, color 0.13s;
+  input[type="radio"] { display: none; }
+  &:hover { background: v.$light-green; border-color: v.$primary; }
+  &--active {
+    background: v.$light-green;
+    border-color: v.$primary;
+    color: v.$primary;
+  }
+}
+
+// Modal cancel / save buttons
+.ad-modal-cancel-btn {
+  @include m.poppins;
+  font-size: 0.83rem;
+  font-weight: 600;
+  padding: 0.65rem 1.3rem;
+  border-radius: 9px;
+  border: 1.5px solid v.$gray-border;
+  background: v.$white;
+  color: v.$text-muted;
+  cursor: pointer;
+  &:hover { background: v.$gray-50; }
+}
+.ad-modal-save-btn {
+  @include m.poppins;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.83rem;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: 9px;
+  border: none;
+  background: v.$primary;
+  color: v.$white;
+  cursor: pointer;
+  transition: background 0.15s;
+  &:hover { background: v.$primary-hover; }
+}

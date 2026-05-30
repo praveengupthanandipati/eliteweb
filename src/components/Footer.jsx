@@ -19,16 +19,15 @@ const CATEGORIES = [
 ];
 
 const COMPANY_LINKS = [
-  { label: "FAQ's",                  to: '/Faqs' },
-  { label: 'Privacy Policy',         to: '/Privacy' },
-  { label: 'Pricing',                to: '/Pricing' },
-  { label: 'Delivery',               to: '/Delivery' },
-  { label: 'Return & Refund Policy', to: '/Refundpolicy' },
-  { label: 'Terms & Conditions',     to: '/terms' },
-  { label: 'Disclaimer',             to: '/disclaimer' },
+  { label: "FAQ's",                  to: '/faqs' },
+  { label: 'Privacy Policy',         to: '/privacy' },
+  { label: 'Pricing',                to: '/pricing' },
+  { label: 'Delivery',               to: '/delivery' },
+  { label: 'Return & Refund Policy', to: '/refund-policy' },
+  { label: 'Terms & Conditions',     to: '/terms' }, 
   { label: 'Contact Us',             to: '/contact' },
-  { label: 'About Us',               to: '/About' },
-  { label: 'Pickup Points',          to: '/pickup-points' },
+  { label: 'About Us',               to: '/about' },
+  { label: 'Our Stores',             to: '/stores' },  
 ];
 
 const FacebookIcon = () => (

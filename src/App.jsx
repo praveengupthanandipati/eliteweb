@@ -16,6 +16,12 @@ import Privacy from './pages/Privacy'
 import Pricing from './pages/Pricing'
 import Delivery from './pages/Delivery'
 import Refundpolicy from './pages/Refundpolicy'
+import Terms from './pages/Terms'
+import Contact from './pages/Contact'
+import Stores from './pages/Stores'
+import ProfileManagement from './pages/Profile/ProfileManagement'
+import Addresses from './pages/Profile/Addresses'
+import Orders from './pages/Profile/Orders'
 import Toast from './components/Toast'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -39,6 +45,12 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/delivery" element={<Delivery />} />
             <Route path="/refund-policy" element={<Refundpolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/stores" element={<Stores />} />
+            <Route path="/profile" element={<ProfileManagement />} />
+            <Route path="/addresses" element={<Addresses />} />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </main>
         <Footer />

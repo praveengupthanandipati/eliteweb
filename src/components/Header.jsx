@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../styles/header.scss";
 import EliteLogo from "../assets/logo-elite.svg";
 import SignInModal from "./SignInModal";
@@ -448,28 +449,28 @@ const Header = () => {
                     </button>
                   </li>
                   <li>
-                    <a className="dropdown-item menu-item" href="/profile">
+                    <Link className="dropdown-item menu-item" to="/profile">
                       <span className="mi-icon">
                         <ProfileIcon />
                       </span>
                       Profile Management
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item menu-item" href="/addresses">
+                    <Link className="dropdown-item menu-item" to="/addresses">
                       <span className="mi-icon">
                         <AddressIcon />
                       </span>
                       Address Management
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item menu-item" href="/orders">
+                    <Link className="dropdown-item menu-item" to="/orders">
                       <span className="mi-icon">
                         <OrdersIcon />
                       </span>
                       My Orders
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <hr className="dropdown-divider menu-divider" />
